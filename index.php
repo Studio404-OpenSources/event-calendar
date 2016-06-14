@@ -19,9 +19,9 @@ require 'calendar.php';
 }
 </style>
 </head>
-<body>
+<body style="margin:0px; padding:0px">
 <?php
-$container_width = 740;
+$container_width = '100%';
 $opt = array(
 	"dayLabels" => array("ორშ","სამ","ოთხ","ხუთ","პარ","შაბ","კვი"), 
 	"monthLabel" => array("იან","თებ","მარ","აპრ","მაი","ივნ","ივლ","აგვ","სექ","ოქტ","ნოე","დეკ"), 
@@ -30,68 +30,42 @@ $opt = array(
 		"calendar"=>array(
 			"margin"=>"0px auto",
 			"padding"=>"0px", 
-			"width"=>$container_width."px", 
+			"width"=>$container_width, 
 			"font-family"=>"serif"
 		), 
-		"box"=>array(
-			"position"=>"relative",
-			"top"=>"0px",
-			"left"=>"0px", 
-			"width"=>$container_width."px",
-			"height"=>"40px", 
-			"background-color"=>"#787878"
-		),
 		"header"=>array(
 			"line-height"=>"40px", 
-			"vertical-align"=>"middle", 
-			"position"=>"absolute",
-			"left"=>"11px", 
-			"top"=>"0px",
-			"width"=>"calc(100% - 20px)", 
+			"position"=>"relative",
 			"height"=>"40px", 
-			"text-align"=>"center"
+			"text-align"=>"center",
+			"background-color"=>"#787878"
 		),
 		"prev"=>array(
-			"position"=>"absolute", 
-			"top"=>"0px",
-			"height"=>"17px", 
-			"display"=>"block",
 			"cursor"=>"pointer",
 			"text-decoration"=>"none",
 			"color"=>"#FFF",
-			"left"=>"0px"
+			"float"=>"left",
+			"margin-left"=>"10px"
 		),
 		"title"=>array(
+			"margin"=>"0px",
+			"padding"=>"0px",
 			"color"=>"#FFF",
-			"font-size"=>"18px"
+			"font-size"=>"18px",
+			"width"=>"150px",
+			"text-align"=>"center",
+			"position"=>"absolute",
+			"left"=>"calc(50% - 75px)",
+			"top"=>"0px",
 		),
 		"next"=>array(
-			"position"=>"absolute", 
-			"top"=>"0px",
-			"height"=>"17px", 
-			"display"=>"block",
 			"cursor"=>"pointer",
 			"text-decoration"=>"none",
 			"color"=>"#FFF",
-			"right"=>"0px"
+			"float"=>"right",
+			"margin-right"=>"10px"
 		),
-		"box-content"=>array(
-			"border"=>"1px solid #787878", 
-			"border-top"=>"none",
-			"width"=>$container_width."px"
-		),
-		"ul"=>array(
-			"float"=>"left", 
-			"margin"=>"0px",
-			"padding"=>"10px 20px 5px 20px",
-			"list-style-type"=>"none"
-		), 
-		"li"=>array(
-			"margin"=>"1px",
-			"padding"=>"0px",
-			"float"=>"left",
-			"float"=>"left",
-			"width"=>"98px", 
+		"weekdays"=>array(
 			"height"=>"40px", 
 			"line-height"=>"40px", 
 			"text-align"=>"center", 
@@ -99,25 +73,15 @@ $opt = array(
 			"font-size"=>"15px", 
 			"background-color"=>"#f2f2f2"
 		),
-		"dates_ul"=>array(
-			"float"=>"left", 
-			"margin"=>"5px 20px 10px 20px",
-			"padding"=>"0px",
-			"list-style-type"=>"none"
-		),
-		"dates_li"=>array(
-			"margin"=>"1px", 
-			"padding"=>"0px", 
-			"float"=>"left",
-			"width"=>"98px", 
-			"min-height"=>"80px", 
+		"days"=>array(
+			"height"=>"80px", 
 			"font-size"=>"25px", 
 			"background-color"=>"#DDD",
 			"color"=>"#000",
 			"text-align"=>"center", 
 			"position"=>"relative"
 		),
-		"dates_p"=>array(
+		"days_number"=>array(
 			"margin"=>"0px", 
 			"padding"=>"0px", 
 			"width"=>"20px", 

@@ -6,27 +6,36 @@ class calendar{
     private $currentDay = 0;
     private $currentDate = null;
     private $daysInMonth = 0;
+
+    private function requests($type,$item){
+		if($type=="POST" && isset($_POST[$item])){
+			return filter_input(INPUT_POST, $item);
+		}else if($type=="GET" && isset($_GET[$item])){
+			return filter_input(INPUT_GET, $item);
+		}else{
+			return '';
+		}
+	}
     
     public function show($opt) {
     	$this->option = $opt;
     	$this->dayLabels = $this->option['dayLabels'];
     	$this->monthLabel = $this->option['monthLabel'];
     	$this->naviHref = $this->option['slug'];    	
-        
-        $year = null;         
+                
         $month = null;
          
-        if(null == $year && isset($_GET['year'])){
- 			$year = $_GET['year'];
-        }else if(null == $year){
-            $year = date("Y",time());  
-   		}          
+        if($this->requests('GET','year')){
+ 			$year = $this->requests('GET','year');
+        }else{
+            $year = date("Y", time());  
+        }         
          
-        if(null == $month && isset($_GET['month'])){
- 			$month = $_GET['month'];
+        if($this->requests('GET','month')){
+ 			$month = $this->requests('GET','month');
  			if($month > 12){ $month = 12; }
  			if($month <= 0){ $month = 1; }
-        }else if(null == $month){
+        }else{
  			$month = date("m",time());
         }                  
          
@@ -34,35 +43,39 @@ class calendar{
         $this->currentMonth = $month;
         $this->daysInMonth = $this->_daysInMonth($month, $year);  
          
- 
-		$content = sprintf(
-			'<div style="%s">
-			<div style="%s">%s</div>
-			<div style="%s">
-			<ul style="%s">%s</ul>
-			<div style="%s"></div>
-			<ul style="%s">', 
-			$this->arrayToStyle($this->option['css']['calendar']), 
-			$this->arrayToStyle($this->option['css']['box']), 
-			$this->_createNavi(), 
-			$this->arrayToStyle($this->option['css']['box-content']),
-			$this->arrayToStyle($this->option['css']['ul']),
-			$this->_createLabels(),
-			$this->arrayToStyle($this->option['css']['clear']),
-			$this->arrayToStyle($this->option['css']['dates_ul'])			
-		);
-        $weeksInMonth = $this->_weeksInMonth($month,$year);
-		
-		for( $i=0; $i<$weeksInMonth; $i++ ){
+ 		$content = sprintf(
+ 			'<table style="%s">
+ 			<tr style="%s">
+ 			<td colspan="7">%s</td>
+ 			</tr>
+ 			',
+ 			$this->arrayToStyle($this->option['css']['calendar']), 
+ 			$this->arrayToStyle($this->option['css']['header']), 
+ 			$this->_createNavi()
+ 		);
+
+
+ 		$content .= sprintf(
+ 			'<tr>%s</tr>',
+ 			$this->_createLabels()
+ 		);
+
+ 		$weeksInMonth = $this->_weeksInMonth($month,$year);
+
+ 		$f = 1;
+ 		for( $i=0; $i<$weeksInMonth; $i++ ){
+ 			$content .= '<tr>';
 			for($j=1;$j<=7;$j++){
 				$content .= $this->_showDay($i*7+$j);
 			}
+			$content .= '</tr>';
 		}
 
-        $content .= sprintf(
-        	'</ul><div style="%s"></div></div></div>',
-        	$this->arrayToStyle($this->option['css']['clear'])
-        );
+
+ 		$content .= sprintf(
+ 			'</table>'
+ 		);
+		
 
         return $content;   
     }
@@ -85,9 +98,9 @@ class calendar{
         }
 
         $out = sprintf(
-        	'<li style="%s"><p style="%s">%s</p></li>',
-        	$this->arrayToStyle($this->option['css']['dates_li']),
-        	$this->arrayToStyle($this->option['css']['dates_p']),
+        	'<td style="%s"><p style="%s">%s</p></td>',
+        	$this->arrayToStyle($this->option['css']['days']),
+        	$this->arrayToStyle($this->option['css']['days_number']),
         	$cellContent
         );
 
@@ -107,12 +120,9 @@ class calendar{
         );
         
         $out = sprintf(
-        	'<div style="%s">
-        	<a style="%s" href="%s?month=%02d&year=%s">უკან</a>
-        	<span style="%s">%s</span>
-        	<a style="%s" href="%s?month=%02d&year=%s">წინ</a>
-        	</div>',
-        	$this->arrayToStyle($this->option['css']['header']), 
+        	'<a style="%s" href="%s?month=%02d&year=%s">უკან</a>
+        	<div style="%s">%s</div>
+        	<a style="%s" href="%s?month=%02d&year=%s">წინ</a>',
         	$this->arrayToStyle($this->option['css']['prev']), 
         	$this->naviHref, 
         	$preMonth, 
@@ -133,8 +143,8 @@ class calendar{
         $content = '';
         foreach($this->dayLabels as $index => $label){
         	$content .= sprintf(
-				'<li style="%s">%s</li>', 
-				$this->arrayToStyle($this->option['css']['li']), 
+				'<td style="%s">%s</td>', 
+				$this->arrayToStyle($this->option['css']['weekdays']), 
 				$label
 			);
 		}
@@ -189,6 +199,8 @@ class calendar{
 		}
 		return $output;
 	}
+
+	
      
 }
 ?>
