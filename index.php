@@ -11,7 +11,7 @@ require 'calendar.php';
 $opt = array(
 	"addEvents" => true,  
 	"temp_files"=>"_temp", 
-	"shell_files"=>"_shell", 
+	"shell_files"=>"_shellx", 
 	"dayLabels" => array(
 		"ორშ",
 		"სამ",

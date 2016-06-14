@@ -96,14 +96,24 @@ class calendar{
 		){
 			$ck = explode("-", $this->requests('POST','calendar_date'));
 			if(
-				checkdate($ck[0],$ck[1],$ck[2]) 
+				checkdate($ck[0],$ck[1],$ck[2])
 			){
-
 				$this->shell(
 					"createdir", 
 					array(
 						$this->option['temp_files'], 
 						$this->requests('POST','calendar_date')
+					)
+				);
+
+				$this->shell(
+					"createfile",  
+					array(
+						$this->option['temp_files'],
+						$this->requests('POST','calendar_date'),
+						$ck[1],
+						$this->requests('POST','calendar_title'), 
+						$this->requests('POST','calendar_color')
 					)
 				);
 
@@ -144,7 +154,26 @@ class calendar{
 						);
 						shell_exec($command);
 					}
-				break;
+					break;
+				case 'createfile':
+					if(is_dir($arg[0])){
+						$json = json_encode(array(
+							"title"=>$arg[3],
+							"color"=>$arg[4]
+						));
+						echo $json;
+						$command = sprintf(
+							"sh %s/createfile.sh %s %s %s %s %s 2>&1",
+							$this->option['shell_files'], 
+							$arg[0],
+							$arg[1], 
+							$arg[2], 
+							escapeshellarg($json),  
+							$arg[4] 
+						); 
+						shell_exec($command);
+					}
+					break;
 			}
 		}else{
 			die("shell_exec is not enabled !");
