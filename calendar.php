@@ -1,8 +1,13 @@
 <?php
 class calendar{
+	
+	function __construct($opt){
+		$this->option = $opt;
+		$this->post_request();
+		$this->show();
+	}
     
-    public function show($opt) {
-    	$this->option = $opt;
+    public function show() {    	
     	$this->dayLabels = $this->option['dayLabels'];
     	$this->monthLabel = $this->option['monthLabel'];
     	$this->naviHref = $this->option['slug'];  
@@ -52,27 +57,99 @@ class calendar{
 			'<tr>
 			<td colspan="7">
 			<form action="%s" method="POST" style="%s">
-			<label style="%s">თარიღი:</label>
+			<label style="%s">ივენთის დამატება</label>
+			<label style="%s">თარიღი: ( თვე-დღე-წელი )</label>
 			<input type="text" name="calendar_date" value="%s" style="%s" />
 			<label style="%s">დასახელება:</label>
 			<input type="text" name="calendar_title" value="" style="%s" />
+			<label style="%s">ფერი:</label>
+			<select style="%s" name="calendar_color">%s</select>
 			<input type="submit" name="calendar_submit" value="შენახვა" style="%s" />
 			</form>
 			</td>
 			</tr>',
 			$this->option['slug'],
 			$this->arrayToStyle($this->option['css']['form']),
+			$this->arrayToStyle($this->option['css']['form_title']),
 			$this->arrayToStyle($this->option['css']['label']),
-			date("d-m-Y"), 
+			date("m-d-Y"), 
 			$this->arrayToStyle($this->option['css']['input_text']), 
 			$this->arrayToStyle($this->option['css']['label']),
 			$this->arrayToStyle($this->option['css']['input_text']), 
+			$this->arrayToStyle($this->option['css']['label']),
+			$this->arrayToStyle($this->option['css']['select']),
+			$this->arrayToOption($this->option['css']['options']),
 			$this->arrayToStyle($this->option['css']['input_submit']) 
 			);
 		}
  		$content .= '</table>';		
 
         return $content;   
+    }
+
+    private function post_request(){
+    	if(
+			$this->option['addEvents'] && 
+			$this->requests('POST','calendar_date') && 
+			$this->requests('POST','calendar_title') && 
+			$this->requests('POST','calendar_color') 
+		){
+			$ck = explode("-", $this->requests('POST','calendar_date'));
+			if(
+				checkdate($ck[0],$ck[1],$ck[2]) 
+			){
+
+				$this->shell(
+					"createdir", 
+					array(
+						$this->option['temp_files'], 
+						$this->requests('POST','calendar_date')
+					)
+				);
+
+				$this->unsetRequest(array(
+					"calendar_date",
+					"calendar_title",
+					"calendar_color"
+				));
+			}			
+		}
+    }
+
+    private function isEnabled($func) {
+    	return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
+	}
+
+    private function shell($command, $arg = false){
+    	if($arg){
+	    	$validated = array_map(
+				function($arg) { 
+					return str_replace(
+			    		array(';','|','&','$',' '), 
+			    		array(''), 
+			    		$arg
+			    	);
+				},
+				$arg
+			);
+    	}
+		if ($this->isEnabled('shell_exec')) {
+			switch($command){
+				case 'createdir':
+					if(is_array($arg) && is_dir($this->option['shell_files']) && is_dir($arg[0])){
+						$command = sprintf(
+							"sh %s/createdir.sh %s 2>&1",
+							$this->option['shell_files'],
+							implode(' ', $arg)
+						);
+						shell_exec($command);
+					}
+				break;
+			}
+		}else{
+			die("shell_exec is not enabled !");
+		}
+    	
     }
 
     private function requests($type,$item){
@@ -82,6 +159,22 @@ class calendar{
 			return filter_input(INPUT_GET, $item);
 		}else{
 			return '';
+		}
+	}
+
+	private function unsetRequest($item){
+		if(is_array($item)){
+			foreach ($item as $i) {
+				if($this->requests("GET",$i))
+					unset($_GET[$i]);
+				else if($this->requests("POST",$i))
+					unset($_POST[$i]);
+			}
+		}else{
+			if($this->requests("GET",$item))
+				unset($_GET[$item]);
+			else if($this->requests("POST",$item))
+				unset($_POST[$item]);
 		}
 	}
 
@@ -209,7 +302,24 @@ class calendar{
 		return $output;
 	}
 
-	
+	private function arrayToOption($array){
+		$output = '';
+		try{
+			if(is_array($array)){
+				$output = implode("",array_map(
+					function ($v, $k) { return sprintf("<option value='%s'>%s</option>", $k, $v); },
+					$array,
+					array_keys($array)
+				));
+			}
+		}catch(Exception $e){
+			$this->error[] = sprintf(
+				"მოხდა შეცდომა ! <b>%s</b>", 
+				$e
+			);
+		}
+		return $output;
+	}	
      
 }
 ?>

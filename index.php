@@ -1,29 +1,17 @@
 <?php 
-/* require file */
+header("Content-type: text/html; charset=utf-8");
+
+ini_set("display_errors", 1);
+ini_set("track_errors", 1);
+ini_set("html_errors", 1);
+error_reporting(E_ALL);
 date_default_timezone_set("Asia/Tbilisi");
+
 require 'calendar.php';
-?>
-<!DOCTYPE>
-<html lang="ge">
-<head>
-<meta charset="utf-8" />
-<title>Calendar</title>
-<style type="text/css">
- 
-:focus{
-    outline:none;
-}
- 
-.clear{
-    clear:both;
-}
-</style>
-</head>
-<body>
-<?php
-$container_width = '100%';
 $opt = array(
 	"addEvents" => true,  
+	"temp_files"=>"_temp", 
+	"shell_files"=>"_shell", 
 	"dayLabels" => array(
 		"ორშ",
 		"სამ",
@@ -52,7 +40,7 @@ $opt = array(
 		"calendar"=>array(
 			"margin"=>"0px auto",
 			"padding"=>"0px", 
-			"width"=>$container_width, 
+			"width"=>"100%", 
 			"font-family"=>"serif", 
 			"border-top"=>"solid 4px #3c8dbc"
 		), 
@@ -105,14 +93,22 @@ $opt = array(
 			"width"=>"20px", 
 			"height"=>"20px", 
 			"height"=>"20px", 
-			"font-size"=>"14px", 
+			"font-size"=>"16px", 
 			"position"=>"absolute", 
 			"bottom"=>"10px", 
-			"right"=>"10px"
+			"right"=>"10px",
+			"color"=>"#787878"
 		),
 		"form"=>array(
 			"margin"=>"10px 0", 
 			"padding"=>"0px"
+		),
+		"form_title"=>array(
+			"margin"=>"0px", 
+			"padding"=>"20px 0 0 0",
+			"width"=>"100%",
+			"display"=>"block", 
+			"color"=>"#3c8dbc"
 		),
 		"label"=>array(
 			"margin"=>"0px", 
@@ -128,8 +124,20 @@ $opt = array(
 			"height"=>"30px", 
 			"color"=>"#787878"
 		),
+		"select"=>array(
+			"margin"=>"0px", 
+			"padding"=>"0 5px",
+			"width"=>"100%",
+			"height"=>"30px", 
+			"line-height"=>"30px", 
+			"color"=>"#787878"
+		),
+		"options"=>array(
+			"#000000"=>"შავი",
+			"#ff0000"=>"წითელი" 
+		),
 		"input_submit"=>array(
-			"margin"=>"10px 0 0 0", 
+			"margin"=>"15px 0 0 0", 
 			"padding"=>"10px 20px",
 			"border"=>"0px",
 			"cursor"=>"pointer",
@@ -141,11 +149,7 @@ $opt = array(
 		)
 	)
 );
-/*
 
-*/
-$calendar = new calendar();
-echo $calendar->show($opt);
+$calendar = new calendar($opt);
+echo $calendar->show();
 ?>
-</body>
-</html>
