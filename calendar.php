@@ -161,7 +161,6 @@ class calendar{
 							"title"=>$arg[3],
 							"color"=>$arg[4]
 						));
-						echo $json;
 						$command = sprintf(
 							"sh %s/createfile.sh %s %s %s %s %s 2>&1",
 							$this->option['shell_files'], 
