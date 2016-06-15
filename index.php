@@ -80,6 +80,7 @@ $opt = array(
 		),
 		"days"=>array(
 			"height"=>"80px", 
+			"width"=>"120px",
 			"font-size"=>"25px", 
 			"background-color"=>"#ffffff",
 			"color"=>"#000",
@@ -97,7 +98,8 @@ $opt = array(
 			"position"=>"absolute", 
 			"bottom"=>"10px", 
 			"right"=>"10px",
-			"color"=>"#787878"
+			"color"=>"#787878",
+			"z-index"=>"1"
 		),
 		"form"=>array(
 			"margin"=>"10px 0", 
@@ -143,6 +145,13 @@ $opt = array(
 			"cursor"=>"pointer",
 			"background-color"=>"#3c8dbc",
 			"color"=>"#ffffff"
+		),
+		"eventBox"=>array(
+			"margin"=>"2px", 
+			"padding"=>"0px 3px",
+			"color"=>"#ffffff",
+			"font-size"=>"12px",
+			"display"=>"inline-block"
 		),
 		"clear"=>array(
 			"clear"=>"both"

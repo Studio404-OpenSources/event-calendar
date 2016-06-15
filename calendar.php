@@ -95,14 +95,23 @@ class calendar{
 			$this->requests('POST','calendar_color') 
 		){
 			$ck = explode("-", $this->requests('POST','calendar_date'));
+			if($ck[1]<=9){ $ck[1] = sprintf("0%s",$ck[1]); }
+
 			if(
-				checkdate($ck[0],$ck[1],$ck[2])
+				checkdate($ck[0],$ck[1],$ck[2]) 				
 			){
+				$cdate = sprintf(
+					"%s-%s-%s",
+					$ck[0],
+					$ck[1],
+					$ck[2]
+				);
+
 				$this->shell(
 					"createdir", 
 					array(
 						$this->option['temp_files'], 
-						$this->requests('POST','calendar_date')
+						$cdate
 					)
 				);
 
@@ -110,7 +119,7 @@ class calendar{
 					"createfile",  
 					array(
 						$this->option['temp_files'],
-						$this->requests('POST','calendar_date'),
+						$cdate,
 						$ck[1],
 						$this->requests('POST','calendar_title'), 
 						$this->requests('POST','calendar_color')
@@ -152,23 +161,23 @@ class calendar{
 							$this->option['shell_files'],
 							implode(' ', $arg)
 						);
-						shell_exec($command);
+						shell_exec($command);						
 					}
 					break;
 				case 'createfile':
 					if(is_dir($arg[0])){
 						$json = json_encode(array(
+							"day"=>$arg[2],
 							"title"=>$arg[3],
 							"color"=>$arg[4]
 						));
 						$command = sprintf(
-							"sh %s/createfile.sh %s %s %s %s %s 2>&1",
+							"sh %s/createfile.sh %s %s %s %s 2>&1",
 							$this->option['shell_files'], 
 							$arg[0],
 							$arg[1], 
-							$arg[2], 
-							escapeshellarg($json),  
-							$arg[4] 
+							time(), 
+							escapeshellarg($json)
 						); 
 						shell_exec($command);
 					}
@@ -179,6 +188,36 @@ class calendar{
 		}
     	
     }
+
+    private function getEventsFiles($date){
+    	$files = array(); 
+    	$dir = sprintf(
+    		'%s/%s', 
+    		$this->option['temp_files'],
+			$date
+    	); 
+    	// echo $dir."<br/>";
+    	if(is_dir($dir)){
+
+    		$command = sprintf(
+				"cd %s/%s; ls",
+				$this->option['temp_files'],
+				$date
+			);
+	    	$output = shell_exec($command);
+	    	if(!empty($output)){
+	    		$files = explode(".json", $output);
+	    		$files = array_filter(
+					array_map(
+						'trim', 
+						$files
+					)
+				);
+				return $files;
+	    	}
+    	}
+		return false;
+    } 
 
     private function requests($type,$item){
 		if($type=="POST" && isset($_POST[$item])){
@@ -222,10 +261,34 @@ class calendar{
         	$this->currentDate = null;
         	$cellContent = null;
         }
-
+        $addEventDiv = " ";
+        if(!empty($cellContent)){
+        	if($cellContent<=9){ $dayf = "0".$cellContent; }
+        	else{ $dayf = $cellContent; }
+       		$o = $this->currentMonth."-".$dayf."-".$this->currentYear;
+       		if(!empty($this->getEventsFiles($o))){
+       			$file_array = $this->getEventsFiles($o); 
+       			foreach ($file_array as $f) {
+       				$file_path = sprintf(
+	       				'%s/%s/%s.json',
+	       				$this->option['temp_files'], 
+	       				$o, 
+	       				$f
+	       			);
+	       			$fileget = json_decode(file_get_contents($file_path),true);
+	       			$addEventDiv .= sprintf(
+	       				'<span style="%s; background-color:%s">%s</span>',
+	       				$this->arrayToStyle($this->option['css']['eventBox']),
+	       				$fileget['color'],
+	       				$fileget['title']
+	       			);
+       			}      			
+       		}
+    	}
         $out = sprintf(
-        	'<td style="%s"><p style="%s">%s</p></td>',
+        	'<td style="%s">%s<p style="%s">%s</p></td>',
         	$this->arrayToStyle($this->option['css']['days']),
+        	$addEventDiv,
         	$this->arrayToStyle($this->option['css']['days_number']),
         	$cellContent
         );
