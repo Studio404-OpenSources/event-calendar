@@ -252,22 +252,22 @@ class studio404_calendar{
 			$this->option['deleteEvents']
 		){
 			$file = sprintf(
-			'%s/%s',
-    			$this->option['temp_files'], 
-    			$this->requests('GET','del')
-    		);
-    		$file = str_replace(
-    			array('../', './','%','$'),
-    			'',
-    			$file
-    		);
-    		if(file_exists($file)){
-    			@unlink($file);
-    			self::url($this->option['slug']);
-    		}else{
-    			$this->outMessage = "ფაილი ვერ მოიძებნა !";
-    		}
-    	}else if(
+				'%s/%s',
+				$this->option['temp_files'], 
+				$this->requests('GET','del')
+			);
+			$file = str_replace(
+				array('../', './','%','$'),
+				'',
+				$file
+			);
+			if(file_exists($file)){
+				@unlink($file);
+				self::url($this->option['slug']);
+			}else{
+				$this->outMessage = "ფაილი ვერ მოიძებნა !";
+			}
+		}else if(
 			$this->option['addEvents'] && 
 			$this->requests('POST','calendar_date') && 
 			$this->requests('POST','calendar_title') && 
@@ -313,7 +313,7 @@ class studio404_calendar{
 				$this->outMessage = $this->option['lang']['dateFormatErrorMsg'];
 			}		
 		}
-    }
+	}
 
     private function createNavi(){
 		$nextMonth = $this->currentMonth==12?1:intval($this->currentMonth)+1;
