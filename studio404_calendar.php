@@ -272,6 +272,7 @@ class studio404_calendar{
 			$this->requests('POST','calendar_color') 
 		){
 			$ck = explode("-", $this->requests('POST','calendar_date'));
+			if(count($ck)==3 && $ck[0]<=9 && strlen($ck[0])==1){ $ck[0] = sprintf("0%s",$ck[0]); }
 			if(count($ck)==3 && $ck[1]<=9 && strlen($ck[1])==1){ $ck[1] = sprintf("0%s",$ck[1]); }
 
 			if(
