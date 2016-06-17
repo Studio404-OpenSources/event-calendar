@@ -570,14 +570,14 @@ class studio404_calendar{
 		exit();
 	}
 
-	private function arrayToStyleOrOptions($array, $options = false){
+	private function arrayToStyleOrOptions($array, $selectOptions = false){
 		$output = '';
-		$this->options = $options;
+		$this->selectOptions = $selectOptions;
 		try{
 			if(is_array($array)){				
 				$output = implode('; ', array_map(
 					function ($v, $k) { 
-						$sprintf = ($this->options) ? "<option value='%s'>%s</option>" : "%s:%s"; 
+						$sprintf = ($this->selectOptions) ? "<option value='%s'>%s</option>" : "%s:%s"; 
 						return sprintf($sprintf, $k, $v); 
 					},
 					$array,
