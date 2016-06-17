@@ -41,9 +41,11 @@ $main_options = array(
 	), /* Month names */
 	"slug"=>"index.php", /* slug Where should event calendar send requests */
 	"colors"=>array(
-		"#000000"=>"შავი",
-		"#ff0000"=>"წითელი", 
-		"green"=>"მწვანე"
+		"#F44336"=>"ფერი #F44336",
+		"#E91E63"=>"ფერი #E91E63",
+		"#9C27B0"=>"ფერი #9C27B0",
+		"#03A9F4"=>"ფერი #03A9F4",
+		"#009688"=>"ფერი #009688"
 	), /* event label background colors */
 	"lang"=>array(
 		"prevTitle"=>"უკან",

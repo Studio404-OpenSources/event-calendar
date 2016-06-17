@@ -6,7 +6,7 @@ class studio404_calendar{
 	function __construct($main_options){
 		/* less important options */
 		$secondary_options = array(
-			"shell_space_symbol"=>"---",
+			"shell_space_symbol"=>"---", /* replace space for shell arg */
 			"css"=>array(
 				"msg"=>array(
 					"padding"=>"0",
@@ -15,40 +15,40 @@ class studio404_calendar{
 					"display"=>"block",
 					"width"=>"100%",
 					"text-align"=>"center"
-				),
+				), /* message box */
 				"calendar"=>array(
 					"margin"=>"0px auto",
 					"padding"=>"0px", 
 					"width"=>"100%", 
 					"font-family"=>"serif", 
 					"border-top"=>"solid 4px #3c8dbc"
-				), 
+				), /* calendar box */
 				"header"=>array(
 					"line-height"=>"60px", 
 					"position"=>"relative",
 					"height"=>"40px", 
 					"text-align"=>"center",
-				),
+				), /* calendar header */
 				"prev"=>array(
 					"cursor"=>"pointer",
 					"text-decoration"=>"none",
 					"float"=>"left",
 					"margin-left"=>"10px", 
 					"color"=>"#787878"
-				),
+				), /* prev month link */
 				"title"=>array(
 					"margin"=>"0px",
 					"padding"=>"0px",
 					"color"=>"#787878",
 					"text-align"=>"center",
-				),
+				), /* month and year text */
 				"next"=>array(
 					"cursor"=>"pointer",
 					"text-decoration"=>"none",
 					"color"=>"#787878",
 					"float"=>"right",
 					"margin-right"=>"10px"
-				),
+				), /* next month link */
 				"weekdays"=>array(
 					"height"=>"40px", 
 					"line-height"=>"40px", 
@@ -56,7 +56,7 @@ class studio404_calendar{
 					"color"=>"#ffffff", 
 					"font-size"=>"14px", 
 					"background-color"=>"#3c8dbc"
-				),
+				), /* weekdayes */
 				"days"=>array(
 					"height"=>"80px", 
 					"width"=>"120px",
@@ -66,7 +66,7 @@ class studio404_calendar{
 					"text-align"=>"center", 
 					"position"=>"relative",
 					"border"=>"solid 1px #dddddd"
-				),
+				), /* days */
 				"days_number"=>array(
 					"margin"=>"0px", 
 					"padding"=>"2px 5px", 
@@ -80,32 +80,32 @@ class studio404_calendar{
 					"background-color"=>"#3c8dbc",
 					"color"=>"#ffffff",
 					"z-index"=>"1"
-				),
+				), /* days number */
 				"form"=>array(
 					"margin"=>"10px 0", 
 					"padding"=>"0px"
-				),
+				), /* add event form box */
 				"form_title"=>array(
 					"margin"=>"0px", 
 					"padding"=>"20px 0 0 0",
 					"width"=>"100%",
 					"display"=>"block", 
 					"color"=>"#3c8dbc"
-				),
+				), /* add event form title */
 				"label"=>array(
 					"margin"=>"0px", 
 					"padding"=>"10px 0px",
 					"width"=>"100%",
 					"display"=>"block", 
 					"color"=>"#787878"
-				),
+				), /* add event form labels */
 				"input_text"=>array(
 					"margin"=>"0px", 
 					"padding"=>"0 5px",
 					"width"=>"100%",
 					"height"=>"30px", 
 					"color"=>"#787878"
-				),
+				), /* add event form input[type="text"] */
 				"select"=>array(
 					"margin"=>"0px", 
 					"padding"=>"0 5px",
@@ -113,7 +113,7 @@ class studio404_calendar{
 					"height"=>"30px", 
 					"line-height"=>"30px", 
 					"color"=>"#787878"
-				),
+				), /* add event form select */
 				"input_submit"=>array(
 					"margin"=>"15px 0 0 0", 
 					"padding"=>"10px 20px",
@@ -121,7 +121,7 @@ class studio404_calendar{
 					"cursor"=>"pointer",
 					"background-color"=>"#3c8dbc",
 					"color"=>"#ffffff"
-				),
+				), /* add event form submit button */
 				"eventBox"=>array(
 					"margin"=>"2px", 
 					"padding"=>"0px 3px",
@@ -129,7 +129,7 @@ class studio404_calendar{
 					"font-size"=>"12px",
 					"display"=>"inline-block",
 					"cursor"=>"pointer"
-				),
+				), /* event text box */
 				"clear"=>array(
 					"clear"=>"both"
 				)
