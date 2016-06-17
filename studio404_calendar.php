@@ -185,15 +185,15 @@ class studio404_calendar{
 			$this->createLabels()
 		);
 
-
 		$weeksInMonth = $this->weeksInMonth($month,$year);
 		for( $i=0; $i<$weeksInMonth; $i++ ){
 			$content .= '<tr>';
-			for($j=1;$j<=7;$j++){
+			for($j=1; $j<=7; $j++){
 				$content .= $this->showDay($i*7+$j);
 			}
 			$content .= '</tr>';
 		}
+
 		if($this->option['addEvents']){
 			$content .= sprintf(
 				'<tr>
@@ -231,6 +231,7 @@ class studio404_calendar{
 			);
 		}
 		$content .= '</table>';	
+		
 		if($this->option['deleteEvents']){
 			$content .= sprintf(
 				'<script type="text/javascript">
@@ -254,11 +255,13 @@ class studio404_calendar{
 				$this->option['temp_files'], 
 				$this->requests('GET','del')
 			);
+		
 			$file = str_replace(
 				array('../', './','%','$'),
 				'',
 				$file
 			);
+		
 			if(file_exists($file)){
 				@unlink($file);
 				self::url($this->option['slug']);
@@ -315,10 +318,10 @@ class studio404_calendar{
 	}
 
 	private function createNavi(){
-		$nextMonth = $this->currentMonth==12?1:intval($this->currentMonth)+1;
-		$nextYear = $this->currentMonth==12?intval($this->currentYear)+1:$this->currentYear;
-		$preMonth = $this->currentMonth==1?12:intval($this->currentMonth)-1;
-		$preYear = $this->currentMonth==1?intval($this->currentYear)-1:$this->currentYear;
+		$nextMonth = $this->currentMonth == 12 ? 1 : intval($this->currentMonth)+1;
+		$nextYear = $this->currentMonth == 12 ? intval($this->currentYear)+1 : $this->currentYear;
+		$preMonth = $this->currentMonth == 1 ? 12 : intval($this->currentMonth)-1;
+		$preYear = $this->currentMonth == 1 ? intval($this->currentYear)-1 : $this->currentYear;
         
 		$title = sprintf(
 			'%s %s',
@@ -365,7 +368,13 @@ class studio404_calendar{
 
 	private function showDay($cellNumber){
 		if($this->currentDay==0){
-			$firstDayOfTheWeek = date('N',strtotime($this->currentYear.'-'.$this->currentMonth.'-01'));
+			$firstDayOfTheWeek = date(
+				'N',
+				strtotime(
+					$this->currentYear.'-'.$this->currentMonth.'-01'
+				)
+			);
+			
 			if(intval($cellNumber) == intval($firstDayOfTheWeek)){
 				$this->currentDay = 1;
 			}
@@ -388,6 +397,7 @@ class studio404_calendar{
 		if(!empty($cellContent)){
 			if($cellContent<=9){ $dayf = "0".$cellContent; }
 			else{ $dayf = $cellContent; }
+			
 			$o = $this->currentMonth."-".$dayf."-".$this->currentYear;
 			if(!empty($this->getEventsFiles($o))){
 				$file_array = $this->getEventsFiles($o); 
@@ -435,17 +445,28 @@ class studio404_calendar{
      
 	private function weeksInMonth($month=null,$year=null){
 		if(null==($year)){
-			$year =  date("Y",time()); 
+			$year =  date("Y", time()); 
 		}
 		
 		if(null==($month)) {
-			$month = date("m",time());
+			$month = date("m", time());
 		}
 
-		$daysInMonths = $this->daysInMonth($month,$year);
-		$numOfweeks = ($daysInMonths%7==0?0:1) + intval($daysInMonths/7);
-		$monthEndingDay= date('N',strtotime($year.'-'.$month.'-'.$daysInMonths));
-		$monthStartDay = date('N',strtotime($year.'-'.$month.'-01'));
+		$daysInMonths = $this->daysInMonth($month, $year);
+		$numOfweeks = ($daysInMonths % 7 == 0 ? 0 : 1) + intval($daysInMonths / 7);
+		$monthEndingDay= date(
+			'N',
+			strtotime(
+				$year.'-'.$month.'-'.$daysInMonths
+			)
+		);
+		
+		$monthStartDay = date(
+			'N',
+			strtotime(
+				$year.'-'.$month.'-01'
+			)
+		);
          
 		if($monthEndingDay<$monthStartDay){             
 			$numOfweeks++;         
@@ -455,12 +476,12 @@ class studio404_calendar{
 	}
  
 
-	private function daysInMonth($month=null,$year=null){
-		if(null==($year))
-			$year =  date("Y",time()); 
-		if(null==($month))
-			$month = date("m",time());
-		return date('t',strtotime($year.'-'.$month.'-01'));
+	private function daysInMonth($month = null, $year = null){
+		if(null == $year)
+			$year =  date("Y", time()); 
+		if(null == $month)
+			$month = date("m", time());
+		return date('t', strtotime($year.'-'.$month.'-01'));
 	}
 
 	private function requests($type,$item){
@@ -560,7 +581,7 @@ class studio404_calendar{
 		return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
 	}
 
-	private static function url($url=""){
+	private static function url($url = ""){
 		if(empty($url)){
 			echo '<meta http-equiv="refresh" content="0"/>';
 		}else{
