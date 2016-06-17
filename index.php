@@ -1,5 +1,7 @@
 <?php 
 header("Content-type: text/html; charset=utf-8");
+
+/* Set Defoult Time Zone */
 date_default_timezone_set("Asia/Tbilisi");
 
 /* Require Calendar Class */

@@ -551,7 +551,7 @@ class studio404_calendar{
     	return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
 	}
 
-    public static function url($url=""){
+    private static function url($url=""){
 		if(empty($url)){
 			echo '<meta http-equiv="refresh" content="0"/>';
 		}else{
