@@ -177,10 +177,10 @@ class studio404_calendar{
 			</tr>
 			<tr>%s</tr>
 			',
-			$this->arrayToStyle($this->option['css']['msg']),
+			$this->arrayToStyleOrOptions($this->option['css']['msg']),
 			$this->outMessage, 
-			$this->arrayToStyle($this->option['css']['calendar']), 
-			$this->arrayToStyle($this->option['css']['header']), 
+			$this->arrayToStyleOrOptions($this->option['css']['calendar']), 
+			$this->arrayToStyleOrOptions($this->option['css']['header']), 
 			$this->createNavi(),
 			$this->createLabels()
 		);
@@ -211,23 +211,23 @@ class studio404_calendar{
 				</td>
 				</tr>',
 				$this->option['slug'],
-				$this->arrayToStyle($this->option['css']['form']),
-				$this->arrayToStyle($this->option['css']['form_title']),
+				$this->arrayToStyleOrOptions($this->option['css']['form']),
+				$this->arrayToStyleOrOptions($this->option['css']['form_title']),
 				$this->option['lang']['addEvent'],
-				$this->arrayToStyle($this->option['css']['label']),
+				$this->arrayToStyleOrOptions($this->option['css']['label']),
 				$this->option['lang']['date'],
 				$this->option['lang']['dateFormat'],
 				date("m-d-Y"), 
-				$this->arrayToStyle($this->option['css']['input_text']), 
-				$this->arrayToStyle($this->option['css']['label']),
+				$this->arrayToStyleOrOptions($this->option['css']['input_text']), 
+				$this->arrayToStyleOrOptions($this->option['css']['label']),
 				$this->option['lang']['addEventTitle'],
-				$this->arrayToStyle($this->option['css']['input_text']), 
-				$this->arrayToStyle($this->option['css']['label']),
+				$this->arrayToStyleOrOptions($this->option['css']['input_text']), 
+				$this->arrayToStyleOrOptions($this->option['css']['label']),
 				$this->option['lang']['color'],
-				$this->arrayToStyle($this->option['css']['select']),
-				$this->arrayToOption($this->option['colors']),
+				$this->arrayToStyleOrOptions($this->option['css']['select']),
+				$this->arrayToStyleOrOptions($this->option['colors'], true),
 				$this->option['lang']['submitTitle'],
-				$this->arrayToStyle($this->option['css']['input_submit']) 
+				$this->arrayToStyleOrOptions($this->option['css']['input_submit']) 
 			);
 		}
 		$content .= '</table>';	
@@ -334,14 +334,14 @@ class studio404_calendar{
 			<td width="25&#37;"><a style="%s" href="%s?month=%02d&year=%s">%s</a></td>
 			</tr>
 			</table>',
-			$this->arrayToStyle($this->option['css']['prev']), 
+			$this->arrayToStyleOrOptions($this->option['css']['prev']), 
 			$this->naviHref, 
 			$preMonth, 
 			$preYear, 
 			$this->option['lang']['prevTitle'],
-			$this->arrayToStyle($this->option['css']['title']), 
+			$this->arrayToStyleOrOptions($this->option['css']['title']), 
 			$title, 
-			$this->arrayToStyle($this->option['css']['next']), 
+			$this->arrayToStyleOrOptions($this->option['css']['next']), 
 			$this->naviHref, 
 			$nextMonth, 
 			$nextYear,
@@ -356,7 +356,7 @@ class studio404_calendar{
 		foreach($this->dayLabels as $index => $label){
 			$content .= sprintf(
 				'<td style="%s">%s</td>', 
-				$this->arrayToStyle($this->option['css']['weekdays']), 
+				$this->arrayToStyleOrOptions($this->option['css']['weekdays']), 
 				$label
 			);
 		}
@@ -406,7 +406,7 @@ class studio404_calendar{
 					);
 					$addEventDiv .= sprintf(
 						'<span style="%s; background-color:%s" onclick="del(\'%s\')">%s</span>',
-						$this->arrayToStyle($this->option['css']['eventBox']),
+						$this->arrayToStyleOrOptions($this->option['css']['eventBox']),
 						$fileget['color'],
 						$delfilepath,
 						str_replace($this->option['shell_space_symbol']," ",$fileget['title'])
@@ -418,15 +418,15 @@ class studio404_calendar{
 		if(!empty($cellContent)){
 			$out = sprintf(
 				'<td style="%s">%s<p style="%s">%s</p></td>',
-				$this->arrayToStyle($this->option['css']['days']),
+				$this->arrayToStyleOrOptions($this->option['css']['days']),
 				$addEventDiv,
-				$this->arrayToStyle($this->option['css']['days_number']),
+				$this->arrayToStyleOrOptions($this->option['css']['days_number']),
 				$cellContent
 			);
 		}else{
 			$out = sprintf(
 				'<td style="%s"></td>',
-				$this->arrayToStyle($this->option['css']['days'])
+				$this->arrayToStyleOrOptions($this->option['css']['days'])
 			);
 		}
 
@@ -570,32 +570,16 @@ class studio404_calendar{
 		exit();
 	}
 
-	private function arrayToStyle($css){
+	private function arrayToStyleOrOptions($array, $options = false){
 		$output = '';
+		$this->options = $options;
 		try{
-			if(is_array($css)){
+			if(is_array($array)){				
 				$output = implode('; ', array_map(
-				function ($v, $k) { return sprintf("%s:%s", $k, $v); },
-					$css,
-					array_keys($css)
-				));
-			}
-		}catch(Exception $e){
-			$this->outMessage = sprintf(
-				'%s%s', 
-				$this->option['lang']['errorMsg'],
-				$e
-			);
-		}
-		return $output;
-	}
-
-	private function arrayToOption($array){
-		$output = '';
-		try{
-			if(is_array($array)){
-				$output = implode("",array_map(
-				function ($v, $k) { return sprintf("<option value='%s'>%s</option>", $k, $v); },
+					function ($v, $k) { 
+						$sprintf = ($this->options) ? "<option value='%s'>%s</option>" : "%s:%s"; 
+						return sprintf($sprintf, $k, $v); 
+					},
 					$array,
 					array_keys($array)
 				));
