@@ -352,113 +352,119 @@ class studio404_calendar{
 		return $out;
 	}
 
-    private function createLabels(){  
-        $content = '';
-        foreach($this->dayLabels as $index => $label){
-        	$content .= sprintf(
+	private function createLabels(){  
+		$content = '';
+		foreach($this->dayLabels as $index => $label){
+			$content .= sprintf(
 				'<td style="%s">%s</td>', 
 				$this->arrayToStyle($this->option['css']['weekdays']), 
 				$label
 			);
 		}
 		return $content;
-    }
+	}
 
-    private function showDay($cellNumber){
-        if($this->currentDay==0){
-            $firstDayOfTheWeek = date('N',strtotime($this->currentYear.'-'.$this->currentMonth.'-01'));
+	private function showDay($cellNumber){
+		if($this->currentDay==0){
+			$firstDayOfTheWeek = date('N',strtotime($this->currentYear.'-'.$this->currentMonth.'-01'));
 			if(intval($cellNumber) == intval($firstDayOfTheWeek)){
 				$this->currentDay = 1;
 			}
-        }
+		}
          
-        if(($this->currentDay != 0) && ($this->currentDay <= $this->daysInMonth)){
-			$this->currentDate = date('Y-m-d',strtotime($this->currentYear.'-'.$this->currentMonth.'-'.($this->currentDay)));
-            $cellContent = $this->currentDay;
-            $this->currentDay++;
-        }else{
-        	$this->currentDate = null;
-        	$cellContent = null;
-        }
-        $addEventDiv = " ";
-        if(!empty($cellContent)){
-        	if($cellContent<=9){ $dayf = "0".$cellContent; }
-        	else{ $dayf = $cellContent; }
-       		$o = $this->currentMonth."-".$dayf."-".$this->currentYear;
-       		if(!empty($this->getEventsFiles($o))){
-       			$file_array = $this->getEventsFiles($o); 
-       			foreach ($file_array as $f) {
-       				$file_path = sprintf(
-	       				'%s/%s/%s.json',
-	       				$this->option['temp_files'], 
-	       				$o, 
-	       				$f
-	       			);
-	       			$fileget = json_decode(file_get_contents($file_path),true);
-	       			$delfilepath = sprintf(
-	       				'%s/%s.json',
-	       				$o,
-	       				$f
-	       			);
-	       			$addEventDiv .= sprintf(
-	       				'<span style="%s; background-color:%s" onclick="del(\'%s\')">%s</span>',
-	       				$this->arrayToStyle($this->option['css']['eventBox']),
-	       				$fileget['color'],
-	       				$delfilepath,
-	       				str_replace($this->option['shell_space_symbol']," ",$fileget['title'])
-	       			);
-       			}      			
-       		}
-    	}
-    	if(!empty($cellContent)){
-	        $out = sprintf(
-	        	'<td style="%s">%s<p style="%s">%s</p></td>',
-	        	$this->arrayToStyle($this->option['css']['days']),
-	        	$addEventDiv,
-	        	$this->arrayToStyle($this->option['css']['days_number']),
-	        	$cellContent
-	        );
-    	}else{
-    		$out = sprintf(
-	        	'<td style="%s"></td>',
-	        	$this->arrayToStyle($this->option['css']['days'])
-	        );
-    	}
+		if(($this->currentDay != 0) && ($this->currentDay <= $this->daysInMonth)){
+			$this->currentDate = date(
+				'Y-m-d', 
+				strtotime(
+					$this->currentYear.'-'.$this->currentMonth.'-'.($this->currentDay)
+				)
+			);
+			$cellContent = $this->currentDay;
+			$this->currentDay++;
+		}else{
+			$this->currentDate = null;
+			$cellContent = null;
+		}
+		$addEventDiv = " ";
+		if(!empty($cellContent)){
+			if($cellContent<=9){ $dayf = "0".$cellContent; }
+			else{ $dayf = $cellContent; }
+			$o = $this->currentMonth."-".$dayf."-".$this->currentYear;
+			if(!empty($this->getEventsFiles($o))){
+				$file_array = $this->getEventsFiles($o); 
+				foreach ($file_array as $f) {
+					$file_path = sprintf(
+						'%s/%s/%s.json',
+						$this->option['temp_files'], 
+						$o, 
+						$f
+					);
+					$fileget = json_decode(file_get_contents($file_path),true);
+					$delfilepath = sprintf(
+						'%s/%s.json',
+						$o,
+						$f
+					);
+					$addEventDiv .= sprintf(
+						'<span style="%s; background-color:%s" onclick="del(\'%s\')">%s</span>',
+						$this->arrayToStyle($this->option['css']['eventBox']),
+						$fileget['color'],
+						$delfilepath,
+						str_replace($this->option['shell_space_symbol']," ",$fileget['title'])
+					);
+				}      			
+			}
+		}
+    	
+		if(!empty($cellContent)){
+			$out = sprintf(
+				'<td style="%s">%s<p style="%s">%s</p></td>',
+				$this->arrayToStyle($this->option['css']['days']),
+				$addEventDiv,
+				$this->arrayToStyle($this->option['css']['days_number']),
+				$cellContent
+			);
+		}else{
+			$out = sprintf(
+				'<td style="%s"></td>',
+				$this->arrayToStyle($this->option['css']['days'])
+			);
+		}
 
 		return $out;
-    }
+	}
      
-    private function weeksInMonth($month=null,$year=null){
-        if(null==($year)){
-            $year =  date("Y",time()); 
-        }
+	private function weeksInMonth($month=null,$year=null){
+		if(null==($year)){
+			$year =  date("Y",time()); 
+		}
 		
 		if(null==($month)) {
 			$month = date("m",time());
-        }
+		}
 
-        $daysInMonths = $this->daysInMonth($month,$year);
-        $numOfweeks = ($daysInMonths%7==0?0:1) + intval($daysInMonths/7);
-        $monthEndingDay= date('N',strtotime($year.'-'.$month.'-'.$daysInMonths));
-        $monthStartDay = date('N',strtotime($year.'-'.$month.'-01'));
+		$daysInMonths = $this->daysInMonth($month,$year);
+		$numOfweeks = ($daysInMonths%7==0?0:1) + intval($daysInMonths/7);
+		$monthEndingDay= date('N',strtotime($year.'-'.$month.'-'.$daysInMonths));
+		$monthStartDay = date('N',strtotime($year.'-'.$month.'-01'));
          
-        if($monthEndingDay<$monthStartDay){             
-            $numOfweeks++;         
-        }
+		if($monthEndingDay<$monthStartDay){             
+			$numOfweeks++;         
+		}
          
-        return $numOfweeks;
-    }
+		return $numOfweeks;
+	}
  
 
-    private function daysInMonth($month=null,$year=null){
-        if(null==($year))
-            $year =  date("Y",time()); 
- 		if(null==($month))
-            $month = date("m",time());
-        return date('t',strtotime($year.'-'.$month.'-01'));
-    }
+	private function daysInMonth($month=null,$year=null){
+		if(null==($year))
+			$year =  date("Y",time()); 
+		if(null==($month))
+			$month = date("m",time());
+		return date('t',strtotime($year.'-'.$month.'-01'));
+	}
 
-    private function requests($type,$item){
+	private function requests($type,$item){
 		if($type=="POST" && isset($_POST[$item])){
 			return filter_input(INPUT_POST, $item);
 		}else if($type=="GET" && isset($_GET[$item])){
@@ -468,46 +474,49 @@ class studio404_calendar{
 		}
 	}
 
-    private function getEventsFiles($date){
-    	$files = array(); 
-    	$dir = sprintf(
-    		'%s/%s', 
-    		$this->option['temp_files'],
+	private function getEventsFiles($date){
+		$files = array(); 
+		$dir = sprintf(
+			'%s/%s', 
+			$this->option['temp_files'],
 			$date
-    	); 
-    	if(is_dir($dir)){
-    		$command = sprintf(
+		); 
+    	
+		if(is_dir($dir)){
+			$command = sprintf(
 				"cd %s/%s; ls",
 				$this->option['temp_files'],
 				$date
 			);
-	    	$output = shell_exec($command);
-	    	if(!empty($output)){
-	    		$files = explode(".json", $output);
-	    		$files = array_filter(
+			$output = shell_exec($command);
+	    	
+			if(!empty($output)){
+				$files = explode(".json", $output);
+				$files = array_filter(
 					array_map(
 						'trim', 
 						$files
 					)
 				);
 				return $files;
-	    	}
-    	}
+			}
+		}
 		return false;
-    }
+	}
 
-    private function shell($command, $arg){
-    	$validated = array_map(
-				function($arg) { 
-					return str_replace(
-			    		array(';','|','&','$',' '), 
-			    		array(''), 
-			    		$arg
-			    	);
-				},
-				$arg
+	private function shell($command, $arg){
+		$validated = array_map(
+			function($arg) { 
+				return str_replace(
+					array(';','|','&','$',' '), 
+					array(''), 
+					$arg
+				);
+			},
+			$arg
 		);
-		if ($this->isEnabled('shell_exec')) {
+
+		if($this->isEnabled('shell_exec')) {
 			switch($command){
 				case 'createdir':
 					if(is_array($validated) && is_dir($this->option['shell_files']) && is_dir($validated[0])){
@@ -540,19 +549,18 @@ class studio404_calendar{
 					}else{
 						$this->outMessage = $this->option['lang']['errorMsg'];
 					}
-					break;
+				break;
 			}
 		}else{
 			die("shell_exec is not enabled !");
 		}
-    	
-    }
-
-    private function isEnabled($func) {
-    	return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
 	}
 
-    private static function url($url=""){
+	private function isEnabled($func) {
+		return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
+	}
+
+	private static function url($url=""){
 		if(empty($url)){
 			echo '<meta http-equiv="refresh" content="0"/>';
 		}else{
@@ -562,12 +570,12 @@ class studio404_calendar{
 		exit();
 	}
 
-    private function arrayToStyle($css){
+	private function arrayToStyle($css){
 		$output = '';
 		try{
 			if(is_array($css)){
 				$output = implode('; ', array_map(
-					function ($v, $k) { return sprintf("%s:%s", $k, $v); },
+				function ($v, $k) { return sprintf("%s:%s", $k, $v); },
 					$css,
 					array_keys($css)
 				));
@@ -587,7 +595,7 @@ class studio404_calendar{
 		try{
 			if(is_array($array)){
 				$output = implode("",array_map(
-					function ($v, $k) { return sprintf("<option value='%s'>%s</option>", $k, $v); },
+				function ($v, $k) { return sprintf("<option value='%s'>%s</option>", $k, $v); },
 					$array,
 					array_keys($array)
 				));
@@ -600,7 +608,6 @@ class studio404_calendar{
 			);
 		}
 		return $output;
-	}	
-     
+	}
 }
 ?>
