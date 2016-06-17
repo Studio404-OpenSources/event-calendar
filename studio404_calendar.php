@@ -293,7 +293,7 @@ class studio404_calendar{
 						$cdate
 					)
 				);
-				echo $this->requests('POST','calendar_title');
+				
 				$this->shell(
 					"createfile",  
 					array(
