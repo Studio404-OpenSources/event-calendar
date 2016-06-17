@@ -1,17 +1,18 @@
 <?php 
 header("Content-type: text/html; charset=utf-8");
 
-/* Set Defoult Time Zone */
+/* Set Default Time Zone */
 date_default_timezone_set("Asia/Tbilisi");
 
 /* Require Calendar Class */
 require_once 'studio404_calendar.php';
 $main_options = array(
-	"addEvents" => true,  
-	"deleteEvents" => true,  
+	"addEvents"=>true,  
+	"deleteEvents"=>true,  
 	"temp_files"=>"_temp", 
 	"shell_files"=>"_shellx", 
-	"dayLabels" => array(
+	"slug"=>"index.php",
+	"dayLabels"=>array(
 		"ორშ",
 		"სამ",
 		"ოთხ",
@@ -20,7 +21,7 @@ $main_options = array(
 		"შაბ",
 		"კვი"
 	), 
-	"monthLabel" => array(
+	"monthLabel"=>array(
 		"იანვარი",
 		"თებერვალი",
 		"მარტი",
@@ -33,15 +34,7 @@ $main_options = array(
 		"ოქტომბერი",
 		"ნოემბერი",
 		"დეკემბერი"
-	), 
-	"slug"=>"index.php",
-	"colors"=>array(
-		"#F44336"=>"ფერი #F44336",
-		"#E91E63"=>"ფერი #E91E63",
-		"#9C27B0"=>"ფერი #9C27B0",
-		"#03A9F4"=>"ფერი #03A9F4",
-		"#009688"=>"ფერი #009688"
-	),
+	), 	
 	"lang"=>array(
 		"prevTitle"=>"უკან",
 		"nextTitle"=>"წინ",
@@ -54,6 +47,13 @@ $main_options = array(
 		"deleteEventQuestion"=>"გნებავთ წაშალოთ ივენთი ?",
 		"dateFormatErrorMsg"=>"გთხოვთ გადაამოწმოთ თარიღის ფორმატი !",
 		"errorMsg"=>"მოხდა შეცდომა !"
+	), 
+	"colors"=>array(
+		"#F44336"=>"ფერი #F44336",
+		"#E91E63"=>"ფერი #E91E63",
+		"#9C27B0"=>"ფერი #9C27B0",
+		"#03A9F4"=>"ფერი #03A9F4",
+		"#009688"=>"ფერი #009688"
 	)
 );
 

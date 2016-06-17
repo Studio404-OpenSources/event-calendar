@@ -6,17 +6,18 @@ http://c.404.ge/events_calendar
 
 # Installation
 ```php 
-/* Set Defoult Time Zone */
+/* Set Default Time Zone */
 date_default_timezone_set("Asia/Tbilisi");
 
 /* Require Calendar Class */
 require_once 'studio404_calendar.php';
 $main_options = array(
-	"addEvents" => true, /* You Should allow it for only authorize user */
-	"deleteEvents" => true, /* You Should allow it for only authorize user */
-	"temp_files"=>"_temp", /* directory where saves json files */
-	"shell_files"=>"_shellx", /* dangerous directory 'shell script' */
-	"dayLabels" => array(
+	"addEvents"=>true,  
+	"deleteEvents"=>true,  
+	"temp_files"=>"_temp", 
+	"shell_files"=>"_shellx", 
+	"slug"=>"index.php",
+	"dayLabels"=>array(
 		"ორშ",
 		"სამ",
 		"ოთხ",
@@ -24,8 +25,8 @@ $main_options = array(
 		"პარ",
 		"შაბ",
 		"კვი"
-	), /* Week days */
-	"monthLabel" => array(
+	), 
+	"monthLabel"=>array(
 		"იანვარი",
 		"თებერვალი",
 		"მარტი",
@@ -38,15 +39,7 @@ $main_options = array(
 		"ოქტომბერი",
 		"ნოემბერი",
 		"დეკემბერი"
-	), /* Month names */
-	"slug"=>"index.php", /* slug Where should event calendar send requests */
-	"colors"=>array(
-		"#F44336"=>"ფერი #F44336",
-		"#E91E63"=>"ფერი #E91E63",
-		"#9C27B0"=>"ფერი #9C27B0",
-		"#03A9F4"=>"ფერი #03A9F4",
-		"#009688"=>"ფერი #009688"
-	), /* event label background colors */
+	), 	
 	"lang"=>array(
 		"prevTitle"=>"უკან",
 		"nextTitle"=>"წინ",
@@ -59,7 +52,14 @@ $main_options = array(
 		"deleteEventQuestion"=>"გნებავთ წაშალოთ ივენთი ?",
 		"dateFormatErrorMsg"=>"გთხოვთ გადაამოწმოთ თარიღის ფორმატი !",
 		"errorMsg"=>"მოხდა შეცდომა !"
-	) 
+	), 
+	"colors"=>array(
+		"#F44336"=>"ფერი #F44336",
+		"#E91E63"=>"ფერი #E91E63",
+		"#9C27B0"=>"ფერი #9C27B0",
+		"#03A9F4"=>"ფერი #03A9F4",
+		"#009688"=>"ფერი #009688"
+	)
 );
 
 $studio404_calendar = new studio404_calendar($main_options);
