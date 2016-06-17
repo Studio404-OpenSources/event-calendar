@@ -272,7 +272,7 @@ class studio404_calendar{
 			$this->requests('POST','calendar_color') 
 		){
 			$ck = explode("-", $this->requests('POST','calendar_date'));
-			if(count($ck)==3 && $ck[1]<=9 && count($ck[1])==1){ $ck[1] = sprintf("0%s",$ck[1]); }
+			if(count($ck)==3 && $ck[1]<=9 && strlen($ck[1])==1){ $ck[1] = sprintf("0%s",$ck[1]); }
 
 			if(
 				count($ck)==3 && 
@@ -284,7 +284,7 @@ class studio404_calendar{
 					$ck[1],
 					$ck[2]
 				);
-
+				echo $cdate;
 				$this->shell(
 					"createdir", 
 					array(
