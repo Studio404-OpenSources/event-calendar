@@ -6,135 +6,135 @@ class studio404_calendar{
 	function __construct($main_options){
 		/* less important options */
 		$secondary_options = array(
-			"shell_space_symbol"=>"---", /* replace space for shell arg */
-			"css"=>array(
-				"msg"=>array(
-					"padding"=>"0",
-					"margin"=>"5px",
-					"color"=>"red",
-					"display"=>"block",
-					"width"=>"100%",
-					"text-align"=>"center"
-				), /* message box */
-				"calendar"=>array(
-					"margin"=>"0px auto",
-					"padding"=>"0px", 
-					"width"=>"100%", 
-					"font-family"=>"serif", 
-					"border-top"=>"solid 4px #3c8dbc"
-				), /* calendar box */
-				"header"=>array(
-					"line-height"=>"60px", 
-					"position"=>"relative",
-					"height"=>"40px", 
-					"text-align"=>"center",
-				), /* calendar header */
-				"prev"=>array(
-					"cursor"=>"pointer",
-					"text-decoration"=>"none",
-					"float"=>"left",
-					"margin-left"=>"10px", 
-					"color"=>"#787878"
-				), /* prev month link */
-				"title"=>array(
-					"margin"=>"0px",
-					"padding"=>"0px",
-					"color"=>"#787878",
-					"text-align"=>"center",
-				), /* month and year text */
-				"next"=>array(
-					"cursor"=>"pointer",
-					"text-decoration"=>"none",
-					"color"=>"#787878",
-					"float"=>"right",
-					"margin-right"=>"10px"
-				), /* next month link */
-				"weekdays"=>array(
-					"height"=>"40px", 
-					"line-height"=>"40px", 
-					"text-align"=>"center", 
-					"color"=>"#ffffff", 
-					"font-size"=>"14px", 
-					"background-color"=>"#3c8dbc"
-				), /* weekdayes */
-				"days"=>array(
-					"height"=>"80px", 
-					"width"=>"120px",
-					"font-size"=>"25px", 
-					"background-color"=>"#ffffff",
-					"color"=>"#000",
-					"text-align"=>"center", 
-					"position"=>"relative",
-					"border"=>"solid 1px #dddddd"
-				), /* days */
-				"days_number"=>array(
-					"margin"=>"0px", 
-					"padding"=>"2px 5px", 
-					"max-width"=>"20px", 
-					"max-height"=>"20px", 
-					"height"=>"20px", 
-					"font-size"=>"16px", 
-					"position"=>"absolute", 
-					"bottom"=>"10px", 
-					"right"=>"10px",
-					"background-color"=>"#3c8dbc",
-					"color"=>"#ffffff",
-					"z-index"=>"1"
-				), /* days number */
-				"form"=>array(
-					"margin"=>"10px 0", 
-					"padding"=>"0px"
-				), /* add event form box */
-				"form_title"=>array(
-					"margin"=>"0px", 
-					"padding"=>"20px 0 0 0",
-					"width"=>"100%",
-					"display"=>"block", 
-					"color"=>"#3c8dbc"
-				), /* add event form title */
-				"label"=>array(
-					"margin"=>"0px", 
-					"padding"=>"10px 0px",
-					"width"=>"100%",
-					"display"=>"block", 
-					"color"=>"#787878"
-				), /* add event form labels */
-				"input_text"=>array(
-					"margin"=>"0px", 
-					"padding"=>"0 5px",
-					"width"=>"100%",
-					"height"=>"30px", 
-					"color"=>"#787878"
-				), /* add event form input[type="text"] */
-				"select"=>array(
-					"margin"=>"0px", 
-					"padding"=>"0 5px",
-					"width"=>"100%",
-					"height"=>"30px", 
-					"line-height"=>"30px", 
-					"color"=>"#787878"
-				), /* add event form select */
-				"input_submit"=>array(
-					"margin"=>"15px 0 0 0", 
-					"padding"=>"10px 20px",
-					"border"=>"0px",
-					"cursor"=>"pointer",
-					"background-color"=>"#3c8dbc",
-					"color"=>"#ffffff"
-				), /* add event form submit button */
-				"eventBox"=>array(
-					"margin"=>"2px", 
-					"padding"=>"0px 3px",
-					"color"=>"#ffffff",
-					"font-size"=>"12px",
-					"display"=>"inline-block",
-					"cursor"=>"pointer"
-				), /* event text box */
-				"clear"=>array(
-					"clear"=>"both"
-				)
+		"shell_space_symbol"=>"---", /* replace space for shell arg */
+		"css"=>array(
+			"msg"=>array(
+				"padding"=>"0",
+				"margin"=>"5px",
+				"color"=>"red",
+				"display"=>"block",
+				"width"=>"100%",
+				"text-align"=>"center"
+			), /* message box */
+			"calendar"=>array(
+				"margin"=>"0px auto",
+				"padding"=>"0px", 
+				"width"=>"100%", 
+				"font-family"=>"serif", 
+				"border-top"=>"solid 4px #3c8dbc"
+			), /* calendar box */
+			"header"=>array(
+				"line-height"=>"60px", 
+				"position"=>"relative",
+				"height"=>"40px", 
+				"text-align"=>"center",
+			), /* calendar header */
+			"prev"=>array(
+				"cursor"=>"pointer",
+				"text-decoration"=>"none",
+				"float"=>"left",
+				"margin-left"=>"10px", 
+				"color"=>"#787878"
+			), /* prev month link */
+			"title"=>array(
+				"margin"=>"0px",
+				"padding"=>"0px",
+				"color"=>"#787878",
+				"text-align"=>"center",
+			), /* month and year text */
+			"next"=>array(
+				"cursor"=>"pointer",
+				"text-decoration"=>"none",
+				"color"=>"#787878",
+				"float"=>"right",
+				"margin-right"=>"10px"
+			), /* next month link */
+			"weekdays"=>array(
+				"height"=>"40px", 
+				"line-height"=>"40px", 
+				"text-align"=>"center", 
+				"color"=>"#ffffff", 
+				"font-size"=>"14px", 
+				"background-color"=>"#3c8dbc"
+			), /* weekdayes */
+			"days"=>array(
+				"height"=>"80px", 
+				"width"=>"120px",
+				"font-size"=>"25px", 
+				"background-color"=>"#ffffff",
+				"color"=>"#000",
+				"text-align"=>"center", 
+				"position"=>"relative",
+				"border"=>"solid 1px #dddddd"
+			), /* days */
+			"days_number"=>array(
+				"margin"=>"0px", 
+				"padding"=>"2px 5px", 
+				"max-width"=>"20px", 
+				"max-height"=>"20px", 
+				"height"=>"20px", 
+				"font-size"=>"16px", 
+				"position"=>"absolute", 
+				"bottom"=>"10px", 
+				"right"=>"10px",
+				"background-color"=>"#3c8dbc",
+				"color"=>"#ffffff",
+				"z-index"=>"1"
+			), /* days number */
+			"form"=>array(
+				"margin"=>"10px 0", 
+				"padding"=>"0px"
+			), /* add event form box */
+			"form_title"=>array(
+				"margin"=>"0px", 
+				"padding"=>"20px 0 0 0",
+				"width"=>"100%",
+				"display"=>"block", 
+				"color"=>"#3c8dbc"
+			), /* add event form title */
+			"label"=>array(
+				"margin"=>"0px", 
+				"padding"=>"10px 0px",
+				"width"=>"100%",
+				"display"=>"block", 
+				"color"=>"#787878"
+			), /* add event form labels */
+			"input_text"=>array(
+				"margin"=>"0px", 
+				"padding"=>"0 5px",
+				"width"=>"100%",
+				"height"=>"30px", 
+				"color"=>"#787878"
+			), /* add event form input[type="text"] */
+			"select"=>array(
+				"margin"=>"0px", 
+				"padding"=>"0 5px",
+				"width"=>"100%",
+				"height"=>"30px", 
+				"line-height"=>"30px", 
+				"color"=>"#787878"
+			), /* add event form select */
+			"input_submit"=>array(
+				"margin"=>"15px 0 0 0", 
+				"padding"=>"10px 20px",
+				"border"=>"0px",
+				"cursor"=>"pointer",
+				"background-color"=>"#3c8dbc",
+				"color"=>"#ffffff"
+			), /* add event form submit button */
+			"eventBox"=>array(
+				"margin"=>"2px", 
+				"padding"=>"0px 3px",
+				"color"=>"#ffffff",
+				"font-size"=>"12px",
+				"display"=>"inline-block",
+				"cursor"=>"pointer"
+			), /* event text box */
+			"clear"=>array(
+				"clear"=>"both"
 			)
-		);
+		));
+
 		/* merge main and secondary options */
 		$this->option = $main_options + $secondary_options;
 		/* call request method */
@@ -143,7 +143,7 @@ class studio404_calendar{
 		$this->show();
 	}
     
-    public function show() {
+    public function show(){
     	/* Create important variables */ 	
     	$this->dayLabels = $this->option['dayLabels'];
     	$this->monthLabel = $this->option['monthLabel'];
@@ -151,18 +151,18 @@ class studio404_calendar{
         
         /* Check if set year request */
         if($this->requests('GET','year')){
-			$year = $this->requests('GET','year');
+        	$year = $this->requests('GET','year');
         }else{
-            $year = date("Y", time()); 
+        	$year = date("Y", time()); 
         }         
         
         /* Check if set month request */
         if($this->requests('GET','month')){
- 			$month = $this->requests('GET','month');
- 			if($month > 12){ $month = 12; }
- 			if($month <= 0){ $month = 1; }
+        	$month = $this->requests('GET','month');
+        	if($month > 12){ $month = 12; }
+        	if($month <= 0){ $month = 1; }
         }else{
- 			$month = date("m",time());
+        	$month = date("m",time());
         }                  
         
         /* Set some more vars */
@@ -171,26 +171,26 @@ class studio404_calendar{
         $this->currentDay = 0;
         $this->daysInMonth = $this->daysInMonth($month, $year);  
         
-        /* Calendar Starts */
- 		$content = sprintf(
- 			'<span style="%s">%s</span><table style="%s" cellpadding="0" cellspacing="1">
- 			<tr style="%s">
- 			<td colspan="7">%s</td>
- 			</tr>
- 			<tr>%s</tr>
- 			',
- 			$this->arrayToStyle($this->option['css']['msg']),
- 			$this->outMessage, 
- 			$this->arrayToStyle($this->option['css']['calendar']), 
- 			$this->arrayToStyle($this->option['css']['header']), 
- 			$this->createNavi(),
- 			$this->createLabels()
- 		);
+		/* Calendar Starts */
+		$content = sprintf(
+		'<span style="%s">%s</span><table style="%s" cellpadding="0" cellspacing="1">
+		<tr style="%s">
+		<td colspan="7">%s</td>
+		</tr>
+		<tr>%s</tr>
+		',
+		$this->arrayToStyle($this->option['css']['msg']),
+		$this->outMessage, 
+		$this->arrayToStyle($this->option['css']['calendar']), 
+		$this->arrayToStyle($this->option['css']['header']), 
+		$this->createNavi(),
+		$this->createLabels()
+		);
 
 
- 		$weeksInMonth = $this->weeksInMonth($month,$year);
- 		for( $i=0; $i<$weeksInMonth; $i++ ){
- 			$content .= '<tr>';
+		$weeksInMonth = $this->weeksInMonth($month,$year);
+		for( $i=0; $i<$weeksInMonth; $i++ ){
+			$content .= '<tr>';
 			for($j=1;$j<=7;$j++){
 				$content .= $this->showDay($i*7+$j);
 			}
@@ -234,12 +234,12 @@ class studio404_calendar{
 		}
  		$content .= '</table>';	
  		if($this->option['deleteEvents']){
-	 		$content .= sprintf('<script type="text/javascript">
-	 		function del(f){ if(confirm("%s") == true){ location.href = "%s?del="+f;  } }
-	 		</script>',
-	 		$this->option['lang']['deleteEventQuestion'],
-	 		$this->option['slug']
-	 		);
+			$content .= sprintf('<script type="text/javascript">
+			function del(f){ if(confirm("%s") == true){ location.href = "%s?del="+f;  } }
+			</script>',
+			$this->option['lang']['deleteEventQuestion'],
+			$this->option['slug']
+			);
  		}
 
         return $content;   
