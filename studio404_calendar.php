@@ -143,48 +143,48 @@ class studio404_calendar{
 		$this->show();
 	}
     
-    public function show(){
-    	/* Create important variables */ 	
-    	$this->dayLabels = $this->option['dayLabels'];
-    	$this->monthLabel = $this->option['monthLabel'];
-    	$this->naviHref = $this->option['slug'];  
+	public function show(){
+		/* Create important variables */ 	
+		$this->dayLabels = $this->option['dayLabels'];
+		$this->monthLabel = $this->option['monthLabel'];
+		$this->naviHref = $this->option['slug'];  
         
-        /* Check if set year request */
-        if($this->requests('GET','year')){
-        	$year = $this->requests('GET','year');
-        }else{
-        	$year = date("Y", time()); 
-        }         
+		/* Check if set year request */
+		if($this->requests('GET','year')){
+			$year = $this->requests('GET','year');
+		}else{
+			$year = date("Y", time()); 
+		}         
         
-        /* Check if set month request */
-        if($this->requests('GET','month')){
-        	$month = $this->requests('GET','month');
-        	if($month > 12){ $month = 12; }
-        	if($month <= 0){ $month = 1; }
-        }else{
-        	$month = date("m",time());
-        }                  
+		/* Check if set month request */
+		if($this->requests('GET','month')){
+			$month = $this->requests('GET','month');
+			if($month > 12){ $month = 12; }
+			if($month <= 0){ $month = 1; }
+		}else{
+			$month = date("m",time());
+		}                  
         
-        /* Set some more vars */
-        $this->currentYear = $year;
-        $this->currentMonth = $month;
-        $this->currentDay = 0;
-        $this->daysInMonth = $this->daysInMonth($month, $year);  
+		/* Set some more vars */
+		$this->currentYear = $year;
+		$this->currentMonth = $month;
+		$this->currentDay = 0;
+		$this->daysInMonth = $this->daysInMonth($month, $year);  
         
 		/* Calendar Starts */
 		$content = sprintf(
-		'<span style="%s">%s</span><table style="%s" cellpadding="0" cellspacing="1">
-		<tr style="%s">
-		<td colspan="7">%s</td>
-		</tr>
-		<tr>%s</tr>
-		',
-		$this->arrayToStyle($this->option['css']['msg']),
-		$this->outMessage, 
-		$this->arrayToStyle($this->option['css']['calendar']), 
-		$this->arrayToStyle($this->option['css']['header']), 
-		$this->createNavi(),
-		$this->createLabels()
+			'<span style="%s">%s</span><table style="%s" cellpadding="0" cellspacing="1">
+			<tr style="%s">
+			<td colspan="7">%s</td>
+			</tr>
+			<tr>%s</tr>
+			',
+			$this->arrayToStyle($this->option['css']['msg']),
+			$this->outMessage, 
+			$this->arrayToStyle($this->option['css']['calendar']), 
+			$this->arrayToStyle($this->option['css']['header']), 
+			$this->createNavi(),
+			$this->createLabels()
 		);
 
 
@@ -198,60 +198,61 @@ class studio404_calendar{
 		}
 		if($this->option['addEvents']){
 			$content .= sprintf(
-			'<tr>
-			<td colspan="7">
-			<form action="%s" method="POST" style="%s">
-			<label style="%s">%s</label>
-			<label style="%s">%s: ( %s )</label>
-			<input type="text" name="calendar_date" value="%s" style="%s" />
-			<label style="%s">%s:</label>
-			<input type="text" name="calendar_title" value="" style="%s" />
-			<label style="%s">%s:</label>
-			<select style="%s" name="calendar_color">%s</select>
-			<input type="submit" name="calendar_submit" value="%s" style="%s" />
-			</form>
-			</td>
-			</tr>',
-			$this->option['slug'],
-			$this->arrayToStyle($this->option['css']['form']),
-			$this->arrayToStyle($this->option['css']['form_title']),
-			$this->option['lang']['addEvent'],
-			$this->arrayToStyle($this->option['css']['label']),
-			$this->option['lang']['date'],
-			$this->option['lang']['dateFormat'],
-			date("m-d-Y"), 
-			$this->arrayToStyle($this->option['css']['input_text']), 
-			$this->arrayToStyle($this->option['css']['label']),
-			$this->option['lang']['addEventTitle'],
-			$this->arrayToStyle($this->option['css']['input_text']), 
-			$this->arrayToStyle($this->option['css']['label']),
-			$this->option['lang']['color'],
-			$this->arrayToStyle($this->option['css']['select']),
-			$this->arrayToOption($this->option['colors']),
-			$this->option['lang']['submitTitle'],
-			$this->arrayToStyle($this->option['css']['input_submit']) 
+				'<tr>
+				<td colspan="7">
+				<form action="%s" method="POST" style="%s">
+				<label style="%s">%s</label>
+				<label style="%s">%s: ( %s )</label>
+				<input type="text" name="calendar_date" value="%s" style="%s" />
+				<label style="%s">%s:</label>
+				<input type="text" name="calendar_title" value="" style="%s" />
+				<label style="%s">%s:</label>
+				<select style="%s" name="calendar_color">%s</select>
+				<input type="submit" name="calendar_submit" value="%s" style="%s" />
+				</form>
+				</td>
+				</tr>',
+				$this->option['slug'],
+				$this->arrayToStyle($this->option['css']['form']),
+				$this->arrayToStyle($this->option['css']['form_title']),
+				$this->option['lang']['addEvent'],
+				$this->arrayToStyle($this->option['css']['label']),
+				$this->option['lang']['date'],
+				$this->option['lang']['dateFormat'],
+				date("m-d-Y"), 
+				$this->arrayToStyle($this->option['css']['input_text']), 
+				$this->arrayToStyle($this->option['css']['label']),
+				$this->option['lang']['addEventTitle'],
+				$this->arrayToStyle($this->option['css']['input_text']), 
+				$this->arrayToStyle($this->option['css']['label']),
+				$this->option['lang']['color'],
+				$this->arrayToStyle($this->option['css']['select']),
+				$this->arrayToOption($this->option['colors']),
+				$this->option['lang']['submitTitle'],
+				$this->arrayToStyle($this->option['css']['input_submit']) 
 			);
 		}
- 		$content .= '</table>';	
- 		if($this->option['deleteEvents']){
-			$content .= sprintf('<script type="text/javascript">
-			function del(f){ if(confirm("%s") == true){ location.href = "%s?del="+f;  } }
-			</script>',
-			$this->option['lang']['deleteEventQuestion'],
-			$this->option['slug']
+		$content .= '</table>';	
+		if($this->option['deleteEvents']){
+			$content .= sprintf(
+				'<script type="text/javascript">
+				function del(f){ if(confirm("%s") == true){ location.href = "%s?del="+f;  } }
+				</script>',
+				$this->option['lang']['deleteEventQuestion'],
+				$this->option['slug']
 			);
- 		}
+		}
 
-        return $content;   
-    }
+		return $content;   
+	}
 
-    private function post_request(){
-    	if(
-    		$this->requests('GET','del') && 
-    		$this->option['deleteEvents']
-    	){
-    		$file = sprintf(
-    			'%s/%s',
+	private function post_request(){
+		if(
+			$this->requests('GET','del') && 
+			$this->option['deleteEvents']
+		){
+			$file = sprintf(
+			'%s/%s',
     			$this->option['temp_files'], 
     			$this->requests('GET','del')
     		);
