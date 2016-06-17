@@ -315,42 +315,42 @@ class studio404_calendar{
 		}
 	}
 
-    private function createNavi(){
+	private function createNavi(){
 		$nextMonth = $this->currentMonth==12?1:intval($this->currentMonth)+1;
 		$nextYear = $this->currentMonth==12?intval($this->currentYear)+1:$this->currentYear;
 		$preMonth = $this->currentMonth==1?12:intval($this->currentMonth)-1;
 		$preYear = $this->currentMonth==1?intval($this->currentYear)-1:$this->currentYear;
-        //$title = date('Y M',strtotime($this->currentYear.'-'.$this->currentMonth.'-1'));
-        $title = sprintf(
-        	'%s %s',
-        	$this->currentYear, 
-        	$this->monthLabel[(int)$this->currentMonth - 1]
-        );
         
-        $out = sprintf(
-        	'<table width="100&#37;" cellspacing="0" cellpadding="0">
-        	<tr>
-        	<td width="25&#37;"><a style="%s" href="%s?month=%02d&year=%s">%s</a></td>
-        	<td width="50&#37;"><div style="%s">%s</div></td>
-        	<td width="25&#37;"><a style="%s" href="%s?month=%02d&year=%s">%s</a></td>
-        	</tr>
-        	</table>',
-        	$this->arrayToStyle($this->option['css']['prev']), 
-        	$this->naviHref, 
-        	$preMonth, 
-        	$preYear, 
-        	$this->option['lang']['prevTitle'],
-        	$this->arrayToStyle($this->option['css']['title']), 
-        	$title, 
-        	$this->arrayToStyle($this->option['css']['next']), 
-        	$this->naviHref, 
-        	$nextMonth, 
-        	$nextYear,
-        	$this->option['lang']['nextTitle']
-        );
+		$title = sprintf(
+			'%s %s',
+			$this->currentYear, 
+			$this->monthLabel[(int)$this->currentMonth - 1]
+		);
+        
+		$out = sprintf(
+			'<table width="100&#37;" cellspacing="0" cellpadding="0">
+			<tr>
+			<td width="25&#37;"><a style="%s" href="%s?month=%02d&year=%s">%s</a></td>
+			<td width="50&#37;"><div style="%s">%s</div></td>
+			<td width="25&#37;"><a style="%s" href="%s?month=%02d&year=%s">%s</a></td>
+			</tr>
+			</table>',
+			$this->arrayToStyle($this->option['css']['prev']), 
+			$this->naviHref, 
+			$preMonth, 
+			$preYear, 
+			$this->option['lang']['prevTitle'],
+			$this->arrayToStyle($this->option['css']['title']), 
+			$title, 
+			$this->arrayToStyle($this->option['css']['next']), 
+			$this->naviHref, 
+			$nextMonth, 
+			$nextYear,
+			$this->option['lang']['nextTitle']
+		);
 
-        return $out;
-    }
+		return $out;
+	}
 
     private function createLabels(){  
         $content = '';
