@@ -139,8 +139,6 @@ class studio404_calendar{
 		$this->option = $main_options + $secondary_options;
 		/* call request method */
 		$this->post_request();
-		/* show calendar */
-		$this->show();
 	}
     
 	public function show(){
