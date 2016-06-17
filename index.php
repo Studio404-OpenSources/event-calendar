@@ -44,6 +44,7 @@ $main_options = array(
 		"addEventTitle"=>"დასახელება", 
 		"color"=>"ფერი", 
 		"submitTitle"=>"შენახვა",
+		"eventAdded"=>"ივენთი წარმატებით დაემატა !",
 		"deleteEventQuestion"=>"გნებავთ წაშალოთ ივენთი ?",
 		"dateFormatErrorMsg"=>"გთხოვთ გადაამოწმოთ თარიღის ფორმატი !",
 		"errorMsg"=>"მოხდა შეცდომა !"

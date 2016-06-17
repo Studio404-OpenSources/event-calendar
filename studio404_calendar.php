@@ -285,7 +285,7 @@ class studio404_calendar{
 					$ck[1],
 					$ck[2]
 				);
-				echo $cdate;
+				
 				$this->shell(
 					"createdir", 
 					array(
@@ -545,6 +545,7 @@ class studio404_calendar{
 							escapeshellarg($json)
 						); 
 						shell_exec($command);
+						$this->outMessage = $this->option['lang']['eventAdded'];
 					}else{
 						$this->outMessage = $this->option['lang']['errorMsg'];
 					}
