@@ -151,7 +151,7 @@ class studio404_calendar{
         
         /* Check if set year request */
         if($this->requests('GET','year')){
- 			$year = $this->requests('GET','year');
+			$year = $this->requests('GET','year');
         }else{
             $year = date("Y", time()); 
         }         
