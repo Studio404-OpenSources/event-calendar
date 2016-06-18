@@ -436,7 +436,12 @@ class studio404_calendar{
 		}
     	
 		if(!empty($cellContent)){
-			$daysStype = (date("d")==$cellContent) ? "current_days" : "days";
+			$daysStype = (
+				date("d")==$cellContent && 
+				date("m")==$this->currentMonth && 
+				date("Y")==$this->currentYear
+			) ? "current_days" : "days";
+			
 			$out = sprintf(
 				'<td style="%s">%s<p style="%s">%s</p></td>',
 				$this->arrayToStyleOrOptions($this->option['css'][$daysStype]),
