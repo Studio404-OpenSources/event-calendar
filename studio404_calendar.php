@@ -67,6 +67,16 @@ class studio404_calendar{
 				"position"=>"relative",
 				"border"=>"solid 1px #dddddd"
 			), /* days */
+			"current_days"=>array(
+				"height"=>"80px", 
+				"width"=>"120px",
+				"font-size"=>"25px", 
+				"background-color"=>"#3c8dbc",
+				"color"=>"#000",
+				"text-align"=>"center", 
+				"position"=>"relative",
+				"border"=>"solid 1px #dddddd"
+			), /* current day */
 			"days_number"=>array(
 				"margin"=>"0px", 
 				"padding"=>"2px 5px", 
@@ -426,9 +436,10 @@ class studio404_calendar{
 		}
     	
 		if(!empty($cellContent)){
+			$daysStype = (date("d")==$cellContent) ? "current_days" : "days";
 			$out = sprintf(
 				'<td style="%s">%s<p style="%s">%s</p></td>',
-				$this->arrayToStyleOrOptions($this->option['css']['days']),
+				$this->arrayToStyleOrOptions($this->option['css'][$daysStype]),
 				$addEventDiv,
 				$this->arrayToStyleOrOptions($this->option['css']['days_number']),
 				$cellContent
@@ -585,7 +596,6 @@ class studio404_calendar{
 		if(empty($url)){
 			echo '<meta http-equiv="refresh" content="0"/>';
 		}else{
-			header("Location: ".$url."");
 			echo '<meta http-equiv="refresh" content="0; url='.$url.'"/>';
 		}
 		exit();
