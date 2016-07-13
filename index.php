@@ -4,6 +4,9 @@ header('Content-type: text/html; charset=utf-8');
 /* Set Default Time Zone */
 date_default_timezone_set("Asia/Tbilisi");
 
+/* define DIR */
+define("DIR", __DIR__);
+
 /* Require Calendar Class */
 require_once 'studio404_calendar.php';
 $main_options = array(
